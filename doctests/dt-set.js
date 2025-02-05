@@ -11,15 +11,15 @@ await client.del('bikes:racing:france')
 await client.del('bikes:racing:usa')
 // REMOVE_END
 
-// STEP_START sAdd
-const res1 = await client.sAdd('bikes:racing:france', 'bike:1')
+// STEP_START sadd
+const res1 = await client.sadd('bikes:racing:france', 'bike:1')
 console.log(res1)  // >>> 1
 
-const res2 = await client.sAdd('bikes:racing:france', 'bike:1')
+const res2 = await client.sadd('bikes:racing:france', 'bike:1')
 console.log(res2)  // >>> 0
-const res3 = await client.sAdd('bikes:racing:france', ['bike:2', 'bike:3'])
+const res3 = await client.sadd('bikes:racing:france', ['bike:2', 'bike:3'])
 console.log(res3)  // >>> 2
-const res4 = await client.sAdd('bikes:racing:usa', ['bike:1', 'bike:4'])
+const res4 = await client.sadd('bikes:racing:usa', ['bike:1', 'bike:4'])
 console.log(res4)  // >>> 2
 // STEP_END
 
@@ -34,8 +34,8 @@ assert.equal(res4, 2)
 // HIDE_START
 await client.del('bikes:racing:france')
 await client.del('bikes:racing:usa')
-await client.sAdd('bikes:racing:france', 'bike:1', 'bike:2', 'bike:3')
-await client.sAdd('bikes:racing:usa', 'bike:1', 'bike:4')
+await client.sadd('bikes:racing:france', 'bike:1', 'bike:2', 'bike:3')
+await client.sadd('bikes:racing:usa', 'bike:1', 'bike:4')
 // HIDE_END
 const res5 = await client.sIsMember('bikes:racing:usa', 'bike:1')
 console.log(res5)  // >>> true
@@ -53,8 +53,8 @@ assert.equal(res6, false)
 // HIDE_START
 await client.del('bikes:racing:france')
 await client.del('bikes:racing:usa')
-await client.sAdd('bikes:racing:france', 'bike:1', 'bike:2', 'bike:3')
-await client.sAdd('bikes:racing:usa', 'bike:1', 'bike:4')
+await client.sadd('bikes:racing:france', 'bike:1', 'bike:2', 'bike:3')
+await client.sadd('bikes:racing:usa', 'bike:1', 'bike:4')
 // HIDE_END
 const res7 = await client.sInter('bikes:racing:france', 'bikes:racing:usa')
 console.log(res7)  // >>> {'bike:1'}
@@ -67,7 +67,7 @@ assert.deepEqual(res7, [ 'bike:1' ])
 // STEP_START sCard
 // HIDE_START
 await client.del('bikes:racing:france')
-await client.sAdd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
+await client.sadd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
 // HIDE_END
 const res8 = await client.sCard('bikes:racing:france')
 console.log(res8)  // >>> 3
@@ -78,8 +78,8 @@ assert.equal(res8, 3)
 await client.del('bikes:racing:france')
 // REMOVE_END
 
-// STEP_START sAdd_sMembers
-const res9 = await client.sAdd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
+// STEP_START sadd_sMembers
+const res9 = await client.sadd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
 console.log(res9)  // >>> 3
 
 const res10 = await client.sMembers('bikes:racing:france')
@@ -105,8 +105,8 @@ assert.deepEqual(res12, [true, true, false])
 // REMOVE_END
 
 // STEP_START sDiff
-await client.sAdd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
-await client.sAdd('bikes:racing:usa', ['bike:1', 'bike:4'])
+await client.sadd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
+await client.sadd('bikes:racing:usa', ['bike:1', 'bike:4'])
 const res13 = await client.sDiff(['bikes:racing:france', 'bikes:racing:usa'])
 console.log(res13)  // >>> [ 'bike:2', 'bike:3' ]
 // STEP_END
@@ -118,9 +118,9 @@ await client.del('bikes:racing:usa')
 // REMOVE_END
 
 // STEP_START multisets
-await client.sAdd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
-await client.sAdd('bikes:racing:usa', ['bike:1', 'bike:4'])
-await client.sAdd('bikes:racing:italy', ['bike:1', 'bike:2', 'bike:3', 'bike:4'])
+await client.sadd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3'])
+await client.sadd('bikes:racing:usa', ['bike:1', 'bike:4'])
+await client.sadd('bikes:racing:italy', ['bike:1', 'bike:2', 'bike:3', 'bike:4'])
 
 const res14 = await client.sInter(
   ['bikes:racing:france', 'bikes:racing:usa', 'bikes:racing:italy']
@@ -156,7 +156,7 @@ await client.del('bikes:racing:italy')
 debugger;
 
 // STEP_START sRem
-await client.sAdd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3', 'bike:4', 'bike:5'])
+await client.sadd('bikes:racing:france', ['bike:1', 'bike:2', 'bike:3', 'bike:4', 'bike:5'])
 
 const res19 = await client.sRem('bikes:racing:france', 'bike:1')
 console.log(res19)  // >>> 1
